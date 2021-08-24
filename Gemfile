@@ -14,7 +14,10 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'database_cleaner', '~> 2.0'
   gem 'factory_bot_rails', '~> 6.2'
+  gem 'rails-controller-testing', '~> 1.0.4'
   gem 'rspec-rails', '~> 5.0'
+  gem 'shoulda', '~> 3.6.0'
+  gem 'shoulda-matchers', '~> 3.1.3'
 end
 
 group :development do
