@@ -18,6 +18,11 @@ class GamesController < ApplicationController
   # POST /games
   def create
     @game = Game.create!(create_params)
+    unless @game.nil?
+      # Create board
+      positions = PositionsGenerationService.generate(@game)
+      @game.positions.create!(positions)
+    end
     render json: @game, status: :created
   end
 

@@ -33,10 +33,13 @@ RSpec.describe 'Games', type: :request do
         }
       }
       post '/games', params: req_payload
-      byebug
       expect(payload).to_not be_empty
       expect(payload['id']).to_not be_nil
       expect(payload['num_mine']).to eq(req_payload[:game][:num_mine])
+      expect(payload['num_column']).to eq(req_payload[:game][:num_column])
+      expect(payload['num_row']).to eq(req_payload[:game][:num_row])
+      expect(payload['positions'].size).to eq(req_payload[:game][:num_row] * req_payload[:game][:num_column])
+      expect(payload['positions'].select { |m| m[:has_mine] == true }.size).to eq(req_payload[:game][:num_mine])
       expect(response).to have_http_status(:created)
     end
   end
