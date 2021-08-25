@@ -44,6 +44,21 @@ RSpec.describe 'Games', type: :request do
     end
   end
 
+  describe 'PUT /games/{id}/positions/{id}' do
+    let!(:game) { create(:game) }
+    let!(:position) { create(:position,x: 0, y: 0, state: :covered, has_mine: false, value: 0, game_id: game.id) }
+    it 'should update a position' do
+      req_payload_update = {
+        position: {
+          state: 'flagged'
+        }
+      }
+      put "/games/#{game.id}/positions/#{position.id}", params: req_payload_update
+      expect(payload).to_not be_empty
+      expect(response).to have_http_status(:ok)
+    end
+  end
+
   private
 
   def payload

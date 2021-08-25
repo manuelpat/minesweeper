@@ -11,7 +11,6 @@ class GamesController < ApplicationController
   # GET /games/{id}
   def show
     @game = Game.find(params[:id])
-    render json: { error: 'No Found' }, status: :not_found if @game.nil?
     render json: @game, status: :ok
   end
 
@@ -26,9 +25,21 @@ class GamesController < ApplicationController
     render json: @game, status: :created
   end
 
+  # PUT /games/{id}/positions/{id}
+  def update
+    @position = Position.find(params[:id])
+    @position.update!(update_params)
+    @game = Game.find(params[:game_id])
+    render json: @game, status: :ok
+  end
+
   private
 
   def create_params
     params.require(:game).permit(:num_row, :num_column, :num_mine)
+  end
+
+  def update_params
+    params.require(:position).permit(:game_id, :state, :id)
   end
 end
