@@ -1,0 +1,49 @@
+require 'rails_helper'
+
+RSpec.describe 'Games', type: :request do
+  describe 'GET /Game/{id}' do
+    let!(:game) { create(:game) }
+
+    it 'should return a game' do
+      get "/games/#{game.id}"
+      expect(payload).to_not be_empty
+      expect(payload['id']).to eq(game.id)
+      expect(payload['num_row']).to eq(game.num_row)
+      expect(payload['num_column']).to eq(game.num_column)
+      expect(payload['num_mine']).to eq(game.num_mine)
+      expect(response).to have_http_status(200)
+    end
+
+    it 'Should return error message on invalid game' do
+      get '/games/100'
+      expect(payload).to_not be_empty
+      expect(payload['error']).to_not be_empty
+      expect(response).to have_http_status(:not_found)
+    end
+  end
+
+  describe 'POST /games' do
+    it 'should create a game' do
+      req_payload = {
+        game: {
+          num_row: 5,
+          num_column: 5,
+          num_mine: 5,
+          is_active: true
+        }
+      }
+      post '/games', params: req_payload
+      byebug
+      expect(payload).to_not be_empty
+      expect(payload['id']).to_not be_nil
+      expect(payload['num_mine']).to eq(req_payload[:game][:num_mine])
+      expect(response).to have_http_status(:created)
+    end
+  end
+
+  private
+
+  def payload
+    JSON.parse(response.body).with_indifferent_access
+  end
+end
