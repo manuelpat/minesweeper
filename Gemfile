@@ -5,9 +5,9 @@ ruby '2.7.1'
 
 gem 'active_model_serializers', '~> 0.10.8'
 gem 'bootsnap', '>= 1.4.4', require: false
+gem 'pg'
 gem 'puma', '~> 5.0'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.1'
-gem 'sqlite3', '~> 1.4'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do

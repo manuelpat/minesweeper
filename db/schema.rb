@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2021_08_24_134642) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "games", force: :cascade do |t|
     t.integer "num_row"
     t.integer "num_column"
@@ -27,7 +30,7 @@ ActiveRecord::Schema.define(version: 2021_08_24_134642) do
     t.boolean "has_mine"
     t.integer "state"
     t.integer "value"
-    t.integer "game_id", null: false
+    t.bigint "game_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["game_id"], name: "index_positions_on_game_id"

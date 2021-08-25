@@ -36,10 +36,10 @@ class GamesController < ApplicationController
   private
 
   def create_params
-    params.require(:game).permit(:num_row, :num_column, :num_mine)
+    params.permit(:num_row, :num_column, :num_mine)
   end
 
   def update_params
-    params.require(:position).permit(:game_id, :state, :id)
+    params.permit(:game_id, :state, :id)
   end
 end

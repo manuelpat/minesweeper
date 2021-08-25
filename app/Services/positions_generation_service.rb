@@ -6,7 +6,7 @@ class PositionsGenerationService
     position_x = curr_game.num_row - 1
     Array(0..position_x).each do |x|
       Array(0..position_y).each do |y|
-        position = { x: x, y: y, has_mine: false, state: :uncovered, value: 0 }
+        position = { x: x, y: y, has_mine: false, state: :covered, value: 0 }
         arr_positions.push(position)
       end
     end
